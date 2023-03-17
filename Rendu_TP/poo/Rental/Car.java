@@ -29,4 +29,17 @@ public class Car {
     public String toString() {
         return modele + " " + annee;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof Car)) {
+            return false;
+        }
+        Car other = (Car) obj; // Cast obj en Person
+        return Objects.equals(modele, other.modele) && annee == other.annee;
+    }
+
 }

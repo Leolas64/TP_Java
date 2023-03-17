@@ -85,4 +85,16 @@ public class CarRental{
     }
 
 
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof CarRental)) {
+            return false;
+        }
+        CarRental other = (CarRental) obj; // Cast obj en Person
+        return Objects.equals(cars, other.cars) && cars == other.cars;
+    }
 }

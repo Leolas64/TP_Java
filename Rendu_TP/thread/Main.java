@@ -9,15 +9,15 @@ package Rendu_TP.thread;
  * Runnable permet entre autre de créer des thread. Pour cela, elle doit être implémenté par une autre classe.
  * */
 
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args){
-        ImplementThreads runnableThreadFirst = new ImplementThreads(0);
-        Thread num1 = new Thread(runnableThreadFirst);
-        num1.start();
+        ImplementThreads first = new ImplementThreads(0);
+        Scanner numberOfThread = new Scanner(System.in);
+        System.out.println("Combien de Threads à utiliser ?");
+        int mesThreads = numberOfThread.nextInt();
+        first.createThread(mesThreads);
 
-        ImplementThreads runnableThreadSecond = new ImplementThreads(1);
-        Thread num2 = new Thread(runnableThreadSecond);
-        num2.start();
     }
 }
