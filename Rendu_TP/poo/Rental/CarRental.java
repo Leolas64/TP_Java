@@ -51,17 +51,13 @@ public class CarRental{
         return vehiclesToSell;
     }
 
-    public Optional<Car> findACarByModel(String findModele){
-        Optional<Car> carRet = null;
-        for (Car car : cars){
-            if (car.modele == findModele) {
-                carRet = Optional.of(car);
+    public Optional<Car> findACarByModel(String model) {
+        for (Car car : cars) {
+            if (car.getModel().equals(model)) {
+                return Optional.of(car);
             }
         }
-        if (carRet == null)
-                return null;
-        else
-        return carRet;
+        return Optional.empty();
     }
 
     public Car[] getCars() {
@@ -95,6 +91,6 @@ public class CarRental{
             return false;
         }
         CarRental other = (CarRental) obj; // Cast obj en Person
-        return Objects.equals(cars, other.cars) && cars == other.cars;
+        return Objects.equals(cars, other.cars);
     }
 }

@@ -1,0 +1,62 @@
+Question 1 Exercice 1 :
+	Le thread lié au compteur "1" a une priorité plus élevée et a donc plus de possibilités d'incrémenter son compteur
+	Alors que le thread lié au compteur "0" a pour une même exécution des possibilités parrallèles
+	Il est aussi possible que la puissance du processeur ait influencé le nombre d'incrémentation du compteur "1" comparé au compteur "0"
+	Runnable est une interface qui contient une seule méthode : run.
+	Runnable permet entre autre de créer des thread. Pour cela, elle doit être implémenté par une autre classe.
+
+Question 1 Exercice 3 :
+	Avec la ligne de commande, le programme va afficher "id 0 1\nid 0 1\n" en boucle car le "for(;;)" provoque une boucle infinie de deux threads simultanés
+Question 2 Exercice 3 :
+	L'affichage n'évolue plus au bout d'un laps de temps car les threads sont bloqués en train de modifier la valeur de "value" en boucle infinie.
+Question 3 Exercice 3 :
+	Le problème de concurrence continue car il se manifeste par l'incohérence des valeurs de "value".
+Question 4 Exercice 3 :
+	Pour être sûr que chaque thread voit les modifications effectuées par l'autre thread, il faut utiliser des mécanismes de synchronisation. Par exemple, on peut utiliser le mot-clé "synchronized" pour protéger l'accès à la variable partagée "value" et garantir que chaque thread voit la dernière valeur modifiée par l'autre thread.
+
+Question 1 Exercice 4 :
+	La méthode strtok n'est pas thread-safe car elle utilise une variable statique interne pour stocker la position 
+	du dernier token analysé, qui est partagée entre tous les appels à la fonction. Si deux threads appellent simultanément strtok avec
+	la même chaîne de caractères en entrée, ils peuvent modifier la valeur de la variable de manière concurrente, ce qui peut 
+	entraîner des résultats imprévisibles et incorrects.
+
+
+Question 2 Exercice 4 :
+	Pour ce code, j'ai donc :
+		Ajouté une variable locale pour lastInput et lastOffset afin que chaque thread dispose de ses propres variables.
+		Utilisé un bloc synchronized sur la classe strtok pour garantir que seul un thread à la fois peut accéder aux variables partagées.
+		Déclaré des variables partagées lastInput et lastOffset comme "volatile" pour garantir que les threads ont accès aux dernières valeurs mises à jour dans la mémoire partagée.
+
+public static CharSequence strtok(CharSequence input, char delimiter) {
+    int offset;
+    CharSequence localInput;
+    int localOffset;
+
+    synchronized (strtok.class) {
+        if (input == null) {
+            localInput = lastInput;
+            localOffset = lastOffset;
+        } else {
+            localInput = input;
+            localOffset = 0;
+            lastInput = input;
+        }
+    }
+
+    for (int i = localOffset; i < localInput.length(); i++) {
+        if (localInput.charAt(i) == delimiter) {
+            synchronized (strtok.class) {
+                lastOffset = i + 1;
+            }
+            return localInput.subSequence(localOffset, i);
+        }
+    }
+
+    synchronized (strtok.class) {
+        lastInput = null;
+    }
+    return localInput.subSequence(localOffset, localInput.length());
+}
+
+private static volatile CharSequence lastInput;
+private static volatile int lastOffset;
