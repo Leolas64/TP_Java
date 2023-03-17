@@ -1,10 +1,7 @@
 package Rendu_TP.poo.Rental;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class CarRental{
     private Car[] cars;
@@ -52,6 +49,19 @@ public class CarRental{
         }
 
         return vehiclesToSell;
+    }
+
+    public Optional<Car> findACarByModel(String findModele){
+        Optional<Car> carRet = null;
+        for (Car car : cars){
+            if (car.modele == findModele) {
+                carRet = Optional.of(car);
+            }
+        }
+        if (carRet == null)
+                return null;
+        else
+        return carRet;
     }
 
     public Car[] getCars() {

@@ -2,6 +2,7 @@ package Rendu_TP.poo.Rental;
 
 public class Camel extends Car{
     int annee;
+    int yearValid = 5;
 
     public Camel(int annee) {
         super(annee);

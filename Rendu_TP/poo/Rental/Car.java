@@ -5,6 +5,7 @@ import java.util.Objects;
 public class Car {
     String modele;
     int annee;
+    int yearValid = 2;
 
     public Car(int annee) {
         this.annee = annee;

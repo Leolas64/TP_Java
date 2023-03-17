@@ -73,7 +73,12 @@ public class RentalTest {
         assertEquals(camel, new Camel(2014));
     }
 
-/*
+    @Test
+    public void camelToString() {
+        Camel camel = new Camel(2014);
+        assertEquals("camel 2014", camel.toString());
+    }
+
     @Test
     public void carRentalCarAndCamel() {
         CarRental rental = new CarRental();
@@ -126,11 +131,4 @@ public class RentalTest {
         rental.add(new Camel(1992));
         assertFalse(rental.findACarByModel("ford mustang").isPresent());
     }
-
-    @Test
-    public void camelToString() {
-        Camel camel = new Camel(2014);
-        assertEquals("camel 2014", camel.toString());
-    }
-*/
 }
